@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.Models.ViewModels;
@@ -58,6 +59,38 @@ namespace TaskManager.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var result = await signInManager.PasswordSignInAsync(
+                userName: model.Email, 
+                password: model.Password, 
+                isPersistent: model.RememberMe, 
+                lockoutOnFailure: false
+                );
+            if(result.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Email (usuario) o contraseña son invalidos");
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            return RedirectToAction("Index", "Home");
         }
 
         #endregion
