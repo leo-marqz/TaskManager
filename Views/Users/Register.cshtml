@@ -4,11 +4,12 @@
     ViewData["Title"] = "Sign Up";
 }
 
-<h2>Crear Cuenta</h2>
+
 
 <section class="">
     <div class="card">
         <div class="card-body p-4">
+            <h3>Crear Cuenta</h3>
             <form asp-action="Register">
                 <div asp-validation-summary="ModelOnly" />
                 <div class="mb-3">
@@ -22,15 +23,18 @@
                     <span class="text-danger" asp-validation-for="Password"></span>
                 </div>
 
-                <button type="submit" class="btn btn-success">Registrarme</button>
-                <a asp-action="Login" class="btn btn-secondary">Iniciar Sesión></a>
-                <button type="submit" class="btn btn-dark">Iniciar Sesión</button>
-                <a asp-action="Register" class="btn btn-secondary">Crear cuenta</a>
-                <a class="btn btn-primary"
-                   asp-action="ExternalLogin"
-                   asp-route-provider="Microsoft">
-                    Continuar con Microsoft
-                </a>
+                <button type="submit" class="btn btn-dark">Registrarme</button>
+                <a asp-action="Login" class="btn btn-secondary">Iniciar Sesión</a>
+
+                <p class="text-center text-muted mt-3">----- Continuar con -----</p>
+                <section class="d-flex justify-content-center">
+                    <a class="btn btn-primary"
+                       asp-action="ExternalLogin"
+                       asp-route-provider="Microsoft">
+                        Microsoft <i class="bi bi-microsoft"></i>
+                    </a>
+                </section>
+
             </form>
         </div>
     </div>

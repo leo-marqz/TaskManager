@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TaskManager.Models.ViewModels;
 
@@ -11,11 +12,17 @@ namespace TaskManager.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
+        private readonly ApplicationDbContext context;
 
-        public UsersController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public UsersController(
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
+            ApplicationDbContext context
+            )
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.context = context;
         }
         #region Register
         [AllowAnonymous]
@@ -168,6 +175,35 @@ namespace TaskManager.Controllers
             return RedirectToAction("Login", routeValues: new { message });
 
         }
+
+        #endregion
+
+        #region Other functions
+
+        [HttpGet]
+        public async Task<IActionResult> UserList(string message = null)
+        {
+            var users = await context.Users
+                .Select(user => new UserViewModel { Email = user.Email })
+                .ToListAsync();
+            var model = new UserListViewModel();
+
+            model.Users = users;
+            model.Message = message;
+
+            return View(model);
+        }
+
+        //public async Task<IActionResult> PromoteToAdmin(string email)
+        //{
+
+        //}
+
+        //[HttpGet]
+        //public async Task<IActionResult> RevokeAdmin(string email)
+        //{
+
+        //}
 
         #endregion
 

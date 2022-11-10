@@ -1,0 +1,55 @@
+﻿@using TaskManager.Models.ViewModels;
+@model UserListViewModel
+
+@{
+    ViewData["Title"] = "User List";
+    Layout = "../Shared/_Layout";
+}
+
+@if (Model.Message is not null)
+{
+    <p class="alert alert-success" role="alert">
+        @Model.Message
+    </p>
+}
+
+@if (Model.Users is not null)
+{
+    <form method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Acción</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td>
+                            @user.Email
+                        </td>
+                        <td>
+                            <button class="btn btn-dark me-2"
+                            asp-action="PromoteToAdmin"
+                            asp-route-email="@user.Email">
+                                Promover a administrador
+                            </button>
+
+                            <button class="btn btn-warning me-2"
+                            asp-action="RevokeAdmin"
+                            asp-route-email="@user.Email">
+                                Revocar de administrador
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
+}
+else
+{
+    <p>No hay usuarios para mostrar ...</p>
+}
