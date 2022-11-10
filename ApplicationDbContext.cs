@@ -11,6 +11,11 @@ namespace TaskManager
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+
         public DbSet<Entities.Task> Tasks { get; set; }
         public DbSet<Entities.Step> Steps { get; set; }
         public DbSet<Entities.AttachedFile> AttachedFiles { get; set; }

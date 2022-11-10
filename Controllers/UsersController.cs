@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using System.Security.Claims;
 using TaskManager.Models.ViewModels;
+using TaskManager.Services;
 
 namespace TaskManager.Controllers
 {
@@ -181,6 +183,7 @@ namespace TaskManager.Controllers
         #region Other functions
 
         [HttpGet]
+        [Authorize(Roles = ConstantsService.RoleAdmin)]
         public async Task<IActionResult> UserList(string message = null)
         {
             var users = await context.Users
@@ -194,16 +197,41 @@ namespace TaskManager.Controllers
             return View(model);
         }
 
-        //public async Task<IActionResult> PromoteToAdmin(string email)
-        //{
+        [HttpPost]
+        [Authorize(Roles = ConstantsService.RoleAdmin)]
+        public async Task<IActionResult> PromoteToAdmin(string email)
+        {
+            var user = await context.Users
+                .Where(user => user.Email == email)
+                .FirstOrDefaultAsync();
+            if (user is null)
+            {
+                return NotFound();
+            }
+            await userManager.AddToRoleAsync(user, ConstantsService.RoleAdmin);
+            return RedirectToAction(
+                actionName: "UserList",
+                routeValues: new { message = $"Rol asignado correctament a {email}" }
+                );
+        }
 
-        //}
-
-        //[HttpGet]
-        //public async Task<IActionResult> RevokeAdmin(string email)
-        //{
-
-        //}
+        [HttpPost]
+        [Authorize(Roles = ConstantsService.RoleAdmin)]
+        public async Task<IActionResult> RevokeAdmin(string email)
+        {
+            var user = await context.Users
+                .Where(user => user.Email == email)
+                .FirstOrDefaultAsync();
+            if (user is null)
+            {
+                return NotFound();
+            }
+            await userManager.RemoveFromRoleAsync(user, ConstantsService.RoleAdmin);
+            return RedirectToAction(
+                actionName: "UserList",
+                routeValues: new { message = $"Rol removido correctament a {email}" }
+                );
+        }
 
         #endregion
 
