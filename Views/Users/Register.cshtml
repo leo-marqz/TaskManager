@@ -22,8 +22,15 @@
                     <span class="text-danger" asp-validation-for="Password"></span>
                 </div>
 
-                <button type="submit" class="btn btn-success" >Registrarme</button>
+                <button type="submit" class="btn btn-success">Registrarme</button>
                 <a asp-action="Login" class="btn btn-secondary">Iniciar Sesión></a>
+                <button type="submit" class="btn btn-dark">Iniciar Sesión</button>
+                <a asp-action="Register" class="btn btn-secondary">Crear cuenta</a>
+                <a class="btn btn-primary"
+                   asp-action="ExternalLogin"
+                   asp-route-provider="Microsoft">
+                    Continuar con Microsoft
+                </a>
             </form>
         </div>
     </div>

@@ -7,6 +7,13 @@
 
 <h2>Inicio Sesión</h2>
 
+@if (ViewData.Keys.Contains("message"))
+{
+    <p class="text-danger">
+        @ViewData["message"]
+    </p>
+}
+
 <section class="">
     <div class="card">
         <div class="card-body p-4">
@@ -27,8 +34,13 @@
                     <label asp-for="RememberMe" class="form-check-label"></label>
                 </div>
 
-                <button type="submit" class="btn btn-success">Iniciar Sesión</button>
-                <a asp-action="Register" class="btn btn-secondary">Crear cuenta ></a>
+                <button type="submit" class="btn btn-dark">Iniciar Sesión</button>
+                <a asp-action="Register" class="btn btn-secondary">Crear cuenta</a>
+                <a class="btn btn-primary"
+                   asp-action="ExternalLogin"
+                   asp-route-provider="Microsoft">
+                    Continuar con Microsoft
+                </a>
             </form>
         </div>
     </div>
