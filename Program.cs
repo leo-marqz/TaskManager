@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using TaskManager;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +19,7 @@ var policyForAuthenticatedUsers = new AuthorizationPolicyBuilder()
 builder.Services.AddControllersWithViews(options =>
 {
     options.Filters.Add(new AuthorizeFilter(policyForAuthenticatedUsers));
-});
+}).AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
 builder.Services.AddRouting(router => router.LowercaseUrls = true);
 
@@ -45,8 +48,24 @@ builder.Services.PostConfigure<CookieAuthenticationOptions>(
         options.AccessDeniedPath = "/users/login";
     }
     );
+
+//localization
+builder.Services.AddLocalization(options =>
+{
+    options.ResourcesPath = "Resources";
+});
+
 //-------------------------------------------------
 var app = builder.Build();
+
+//Languages
+var UICultures = new[] { "es", "en" };
+
+app.UseRequestLocalization(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture("es");
+    options.SupportedUICultures = UICultures.Select(culture => new CultureInfo(culture)).ToList();
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

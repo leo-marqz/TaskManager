@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Diagnostics;
 using TaskManager.Models;
 
@@ -7,14 +8,20 @@ namespace TaskManager.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IStringLocalizer<HomeController> stringLocalizer;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            ILogger<HomeController> logger,
+            IStringLocalizer<HomeController> stringLocalizer
+            )
         {
             _logger = logger;
+            this.stringLocalizer = stringLocalizer;
         }
 
         public IActionResult Index()
         {
+            ViewBag.Greetings = stringLocalizer["Bienvenidos a Task Manager"]; //return: good morning is(english)
             return View();
         }
 
