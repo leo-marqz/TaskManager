@@ -1,0 +1,5 @@
+﻿
+function showError() {
+    alert(errorMessage);
+}
+
