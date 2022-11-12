@@ -5,10 +5,18 @@
 }
 
 <div class="text-center">
+    @*normal*@
     @*<h1 class="display-4">@ViewBag.Greetings</h1>*@
     <h1 class="display-4">@localizer["Bienvenidos a Task Manager"]</h1>
 
+    @*multi-language - view-level translation with resource type files*@
     <p>
         @localizer["Aprende acerca de <a href=\"https://docs.microsoft.com/aspnet/core\">construir aplicaciones web con ASP.NET Core</a>."]
+    </p>
+
+    @*//multilingual - view-level translation with resource type files and use of keys*@
+
+    <p>
+        @localizer["UnaClave"]
     </p>
 </div>

@@ -117,19 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Aprende acerca de &lt;a href=&quot;https://docs.microsoft.com/aspnet/core&quot;&gt;construir aplicaciones web con ASP.NET Core&lt;/a&gt;." xml:space="preserve">
-    <value>Learn about &lt;a href="https://docs.microsoft.com/aspnet/core"&gt;building Web apps with ASP.NET Core&lt;/a&gt;.</value>
-  </data>
-  <data name="Bienvenidos a Task Manager" xml:space="preserve">
-    <value>Welcome to Task Manager</value>
-  </data>
-  <data name="Inicio" xml:space="preserve">
-    <value>Home</value>
-  </data>
   <data name="UnaClave" xml:space="preserve">
-    <value>Translation using keys to get content according to language</value>
-  </data>
-  <data name="Usuarios" xml:space="preserve">
-    <value>Users</value>
+    <value>Traduccion usando claves para obtener contenido segun el idioma</value>
   </data>
 </root>
