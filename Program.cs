@@ -19,7 +19,11 @@ var policyForAuthenticatedUsers = new AuthorizationPolicyBuilder()
 builder.Services.AddControllersWithViews(options =>
 {
     options.Filters.Add(new AuthorizeFilter(policyForAuthenticatedUsers));
-}).AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+}).AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization(options =>
+    {
+        options.DataAnnotationLocalizerProvider = (_, factory) => factory.Create(typeof(SharedResource));
+    });
 
 builder.Services.AddRouting(router => router.LowercaseUrls = true);
 
