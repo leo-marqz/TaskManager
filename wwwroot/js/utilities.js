@@ -1,5 +1,2 @@
 ﻿
-function showError() {
-    alert(errorMessage);
-}
 

@@ -22,7 +22,6 @@ namespace TaskManager.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Greetings = stringLocalizer["Bienvenidos a Task Manager"]; //return: good morning is(english)
             return View();
         }
 
