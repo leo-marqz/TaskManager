@@ -1,1 +1,58 @@
-﻿
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer localizer
+
+@{
+    ViewData["Title"] = "Listado de tareas";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@localizer["Mis Tareas"]</h1>
+    <button onclick="AddTask()">@localizer["Agregar tarea"]</button>
+</div>
+
+<div id="container__task" class="text-center p-2">
+    <div class="text-start" data-bind="foreach: tasks">
+        <div name="task" class="border mb-2 p-2" style="cursor:pointer;">
+            <p data-bind="text: title"></p>
+        </div>
+    </div>
+
+    <div data-bind="visible: loading" class="spinner-border">
+        <span class="visually-hidden">Cargando.....</span>
+    </div>
+
+    <div data-bind="visible: noTask">
+        No hay tareas para mostrar
+    </div>
+
+</div>
+
+@section Scripts{
+    <script asp-append-version="true" src="~/js/tasks.js"></script>
+    <script>
+
+        const tasksViewModel = {
+            tasks: ko.observableArray([]),
+            loading: ko.observable(true),
+            noTask: ko.pureComputed(() => {
+                if (tasksViewModel.loading()) {
+                    return false;
+                }
+                return (tasksViewModel.tasks().length === 0);
+            })
+        }
+
+        setTimeout(function () {
+            //tasksViewModel.tasks.push({ title: "tarea 1" })
+            tasksViewModel.loading(false)
+        }, 2000)
+
+        ko.applyBindings(tasksViewModel, document.getElementById('container__task'));
+
+        function AddTask() {
+            tasksViewModel
+        }
+
+    </script>
+}
