@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Localization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using TaskManager.Services;
+@inject IViewLocalizer localizer
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var urlRedirect = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+}
+
+<form asp-controller="Home"
+      asp-action="ChangeLanguage"
+      asp-route-urlRedirect="@urlRedirect"
+      method="post"
+      class="form-horizontal"
+      role="form"
+      style="display:inline;">
+    <label>@localizer["language:"]</label>
+    <select name="culture"
+            asp-for="@requestCulture.RequestCulture.UICulture.Name"
+            id="culture"
+            onchange="this.form.submit()"
+            asp-items="@ConstantsService.supportedUICultures"></select>
+</form>
+
