@@ -9,8 +9,6 @@ namespace TaskManager.Entities
         public int Id { get; set; }
         [StringLength(250)]
         [Required]
-
-
         public string Title { get; set; }
         public string Description { get; set; }
         public int Order { get; set; }

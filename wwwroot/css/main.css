@@ -1,0 +1,40 @@
+﻿
+
+#section-form-add-task {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#form-add-task {
+    width: 100%;
+    max-width: 700px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 25%;
+    align-items: center;
+    gap: 5px;
+}
+
+    #form-add-task input[type="text"] {
+        border-radius: 7px;
+        padding: 5px;
+    }
+
+    #form-add-task button {
+        padding: 5px;
+        background: #4800ff;
+        border-radius: 7px;
+        color: white;
+        outline-color: none;
+        border: 2px solid #4202e6;
+    }
+
+        #form-add-task button:hover {
+            background: #6529fb;
+        }
+
+#containter-tasks {
+    padding: 5px 20px;
+}
